@@ -44,6 +44,42 @@ describe('StoryRow', () => {
     expect(titleLink).toHaveAttribute('data-story-link')
   })
 
+  it('shows the domain badge with an external-link arrow on external stories', () => {
+    const story = makeStory({
+      id: 42,
+      url: 'https://example.com/post'
+    })
+
+    const { container } = render(
+      <ul>
+        <StoryRow
+          story={story}
+          rank={1}
+        />
+      </ul>
+    )
+
+    const badge = container.querySelector('[data-story-domain]')
+    expect(badge).not.toBeNull()
+    expect(badge).toHaveTextContent('example.com')
+    expect(badge?.querySelector('svg')).not.toBeNull()
+  })
+
+  it('does not show a domain badge on text posts', () => {
+    const story = makeAskStory({ id: 77 })
+
+    const { container } = render(
+      <ul>
+        <StoryRow
+          story={story}
+          rank={1}
+        />
+      </ul>
+    )
+
+    expect(container.querySelector('[data-story-domain]')).toBeNull()
+  })
+
   it('always points the replies link at the item conversation page', () => {
     const story = makeStory({
       id: 42,

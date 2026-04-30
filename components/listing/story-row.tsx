@@ -50,8 +50,12 @@ export function StoryRow({ story, rank }: { story: HnStory; rank: number }) {
               {story.title}
             </h2>
             {domain && (
-              <span className="font-sans text-[12px] text-ink-4 whitespace-nowrap">
+              <span
+                data-story-domain
+                className="inline-flex items-center gap-1 font-sans text-[12px] text-ink-3 whitespace-nowrap"
+              >
                 {domain}
+                <ExternalArrow />
               </span>
             )}
           </div>
@@ -90,6 +94,25 @@ export function StoryRow({ story, rank }: { story: HnStory; rank: number }) {
 
 function Sep() {
   return <span className="text-ink-4">·</span>
+}
+
+function ExternalArrow() {
+  return (
+    <svg
+      viewBox="0 0 12 12"
+      width="9"
+      height="9"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <path
+        d="M4 2 H10 V8 M10 2 L3 9"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        fill="none"
+      />
+    </svg>
+  )
 }
 
 function HeaderLink({
