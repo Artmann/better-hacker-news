@@ -127,7 +127,7 @@ export function ListingClient() {
       if (!el) {
         return
       }
-      const link = el.querySelector<HTMLAnchorElement>('a[data-story-link]')
+      const link = el.querySelector<HTMLAnchorElement>('a[data-story-comments]')
       markSeenForRow(el, seenRef.current)
       link?.click()
     }
@@ -193,7 +193,7 @@ export function ListingClient() {
 
     function onClick(e: MouseEvent) {
       const target = (e.target as HTMLElement | null)?.closest<HTMLAnchorElement>(
-        'a[data-story-link]'
+        'a[data-story-link], a[data-story-comments]'
       )
       if (!target) {
         return

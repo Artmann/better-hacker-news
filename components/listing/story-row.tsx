@@ -43,47 +43,82 @@ export function StoryRow({ story, rank }: { story: HnStory; rank: number }) {
         {String(rank).padStart(2, '0')}
       </div>
 
-      <Link
-        href={`/item/${story.id}`}
-        data-story-link
-        className="block min-w-0 group"
-      >
-        <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap mb-2 sm:mb-1.5">
-          <h2 className="font-serif text-[19px] sm:text-[21px] leading-[1.32] sm:leading-[1.3] font-semibold tracking-[-0.01em] text-ink group-hover:text-accent-ink transition-colors flex-1 [text-wrap:pretty]">
-            {story.title}
-          </h2>
-          {domain && (
-            <span className="font-sans text-[12px] text-ink-4 whitespace-nowrap">
-              {domain}
-            </span>
+      <div className="block min-w-0">
+        <HeaderLink story={story}>
+          <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap mb-2 sm:mb-1.5">
+            <h2 className="font-serif text-[19px] sm:text-[21px] leading-[1.32] sm:leading-[1.3] font-semibold tracking-[-0.01em] text-ink group-hover:text-accent-ink transition-colors flex-1 [text-wrap:pretty]">
+              {story.title}
+            </h2>
+            {domain && (
+              <span className="font-sans text-[12px] text-ink-4 whitespace-nowrap">
+                {domain}
+              </span>
+            )}
+          </div>
+
+          {text && (
+            <p className="font-serif text-[15px] text-ink-2 my-1.5 sm:my-1 mb-2.5 sm:mb-2 leading-[1.55] line-clamp-3 [text-wrap:pretty]">
+              {text}
+            </p>
           )}
-        </div>
+        </HeaderLink>
 
-        {text && (
-          <p className="font-serif text-[15px] text-ink-2 my-1.5 sm:my-1 mb-2.5 sm:mb-2 leading-[1.55] line-clamp-3 [text-wrap:pretty]">
-            {text}
-          </p>
-        )}
-
-        <div className="flex items-center gap-x-2 gap-y-1 sm:gap-2 flex-wrap font-sans text-[12px] text-ink-3">
+        <div className="flex items-center gap-x-2 gap-y-1 sm:gap-2 flex-wrap font-sans text-[12px] text-ink-3 mt-2 sm:mt-1.5">
           <span className="tabular-nums">{points} points</span>
           <Sep />
           <span className="text-ink-2 font-medium">@{author}</span>
           <Sep />
           <span>{formatRelativeTime(story.time)} ago</span>
           <Sep />
-          <span className="tabular-nums">{comments} replies</span>
+          <Link
+            href={`/item/${story.id}`}
+            data-story-comments
+            className="tabular-nums hover:text-ink-2 transition-colors"
+          >
+            {comments} replies
+          </Link>
           {itemTag && (
             <span className="ml-1 inline-block px-1.5 py-px rounded-[3px] bg-bg-sunk text-[10px] uppercase tracking-[0.08em] text-ink-3">
               {itemTag}
             </span>
           )}
         </div>
-      </Link>
+      </div>
     </li>
   )
 }
 
 function Sep() {
   return <span className="text-ink-4">·</span>
+}
+
+function HeaderLink({
+  story,
+  children,
+}: {
+  story: HnStory
+  children: React.ReactNode
+}) {
+  const className = 'block min-w-0 group'
+  if (story.url) {
+    return (
+      <a
+        href={story.url}
+        data-story-link
+        rel="noopener noreferrer"
+        className={className}
+      >
+        {children}
+      </a>
+    )
+  }
+  return (
+    <Link
+      href={`/item/${story.id}`}
+      data-story-link
+      className={className}
+    >
+      {children}
+    </Link>
+  )
 }
