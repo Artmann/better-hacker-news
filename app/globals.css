@@ -22,13 +22,13 @@
 }
 
 [data-theme='dark'] {
-  --bg: #0f0d0b;
-  --bg-elev: #1a1714;
-  --bg-sunk: #070605;
-  --ink: #faf6ec;
-  --ink-2: #e5ddcc;
-  --ink-3: #b0a693;
-  --ink-4: #7a7163;
+  --bg: #14110e;
+  --bg-elev: #1d1a16;
+  --bg-sunk: #0c0a08;
+  --ink: #d8d1c0;
+  --ink-2: #bdb6a4;
+  --ink-3: #948b7a;
+  --ink-4: #6c6457;
   --rule: #36302a;
   --rule-2: #2a251f;
   --accent: oklch(0.82 0.16 55);
