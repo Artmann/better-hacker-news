@@ -1,6 +1,5 @@
 import type { HnComment } from '@/lib/hn/types'
 import { formatRelativeTime } from '@/lib/hn/derive'
-import { Avatar } from './avatar'
 import { CommentHtml } from './comment-html'
 
 function truncate(s: string, n: number) {
@@ -24,16 +23,13 @@ export function FocalComment({
 
   return (
     <article className="pb-7 mb-7 border-b border-rule">
-      <div className="flex items-center gap-2.5 sm:gap-3 mb-3.5 sm:mb-4">
-        <Avatar name={author} />
-        <div>
-          <div className="font-sans text-[15px] font-semibold text-ink">
-            @{author}
-          </div>
-          <div className="font-sans text-[12px] text-ink-3 mt-px">
-            {formatRelativeTime(comment.time)} ago · on{' '}
-            <em className="italic text-ink-3">{truncate(storyTitle, 50)}</em>
-          </div>
+      <div className="mb-4">
+        <div className="font-sans text-[15px] font-semibold text-ink">
+          @{author}
+        </div>
+        <div className="font-sans text-[12px] text-ink-3 mt-0.5">
+          {formatRelativeTime(comment.time)} ago · on{' '}
+          <em className="italic text-ink-3">{truncate(storyTitle, 50)}</em>
         </div>
       </div>
 

@@ -4,7 +4,7 @@ import { useEffect, useSyncExternalStore } from 'react'
 
 type Theme = 'light' | 'dark'
 
-const STORAGE_KEY = 'ember-theme'
+const STORAGE_KEY = 'bhn-theme'
 const STORAGE_EVENT = 'storage'
 
 function readStoredTheme(): Theme {
@@ -48,10 +48,9 @@ export function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label={`Switch to ${showDarkLabel ? 'dark' : 'light'} mode`}
-      className="font-sans text-[12px] text-ink-3 hover:text-ink hover:bg-bg-sunk transition px-2.5 py-1.5 rounded-full lowercase tracking-[0.02em] inline-flex items-center gap-1.5"
+      className="text-ink-3 hover:text-ink transition-colors px-2 py-1 inline-flex items-center justify-center"
     >
       {mounted && theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-      <span>{mounted ? (showDarkLabel ? 'dark' : 'light') : 'theme'}</span>
     </button>
   )
 }

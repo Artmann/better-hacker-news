@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import type { HnComment } from '@/lib/hn/types'
 import { formatRelativeTime, stripTags } from '@/lib/hn/derive'
-import { Avatar } from './avatar'
 
 export function ReplyCard({
   comment,
@@ -18,16 +17,12 @@ export function ReplyCard({
     <Link
       href={`/item/${storyId}/c/${comment.id}`}
       className="block w-full text-left py-5 border-b border-rule-2 last:border-b-0 group"
-      prefetch={false}
     >
-      <div className="flex items-center flex-wrap gap-x-2 gap-y-1 sm:gap-2.5 mb-2.5 sm:mb-2 font-sans text-[12px]">
-        <Avatar
-          name={author}
-          size="sm"
-        />
+      <div className="flex items-baseline flex-wrap gap-x-2 gap-y-1 mb-2 font-sans text-[12px]">
         <div className="font-semibold text-ink text-[13px] group-hover:text-accent-ink transition-colors">
           @{author}
         </div>
+        <span className="text-ink-4">·</span>
         <div className="text-ink-4">{formatRelativeTime(comment.time)} ago</div>
       </div>
 

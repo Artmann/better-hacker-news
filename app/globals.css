@@ -52,11 +52,11 @@
   --color-accent-ink: var(--accent-ink);
 
   --font-serif:
-    'Source Serif 4', 'Source Serif 4 Fallback', Georgia, 'Times New Roman',
-    serif;
-  --font-sans: 'Inter', 'Inter Fallback', -apple-system, system-ui, sans-serif;
+    var(--font-serif-loaded), Georgia, 'Times New Roman', serif;
+  --font-sans:
+    var(--font-sans-loaded), -apple-system, system-ui, sans-serif;
   --font-mono:
-    'JetBrains Mono', 'JetBrains Mono Fallback', ui-monospace, monospace;
+    var(--font-mono-loaded), ui-monospace, monospace;
 
   --radius-sm: 4px;
   --radius-md: 6px;

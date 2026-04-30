@@ -3,69 +3,91 @@ import type { StoryKind } from '@/lib/hn/types'
 import { ThemeToggle } from '@/components/theme-toggle'
 
 const TABS: Array<{ kind: StoryKind; href: string; label: string }> = [
-  { kind: 'top', href: '/', label: 'top' },
-  { kind: 'new', href: '/new', label: 'new' },
-  { kind: 'ask', href: '/ask', label: 'ask' },
-  { kind: 'show', href: '/show', label: 'show' }
+  { kind: 'top', href: '/', label: 'Top' },
+  { kind: 'new', href: '/new', label: 'New' },
+  { kind: 'ask', href: '/ask', label: 'Ask' },
+  { kind: 'show', href: '/show', label: 'Show' }
 ]
 
 const MONTHS = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
+  'January',
+  'February',
+  'March',
+  'April',
   'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec'
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
 ]
-const DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+const DAYS = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday'
+]
 
-function formatToday() {
+function formatToday(): { date: string; edition: string } {
   const now = new Date()
-  return `${DAYS[now.getDay()]}, ${MONTHS[now.getMonth()]} ${now.getDate()}`
+  const date = `${DAYS[now.getDay()]}, ${MONTHS[now.getMonth()]} ${now.getDate()}`
+  const start = new Date(2024, 0, 1).getTime()
+  const days = Math.floor((now.getTime() - start) / 86_400_000)
+  const edition = `№${String(days).padStart(4, '0')}`
+  return { date, edition }
 }
 
 export function Masthead({ active }: { active: StoryKind }) {
+  const { date, edition } = formatToday()
+
   return (
-    <header className="pt-9 sm:pt-14 pb-[18px] sm:pb-6 border-b border-rule">
-      <div className="flex items-baseline justify-between gap-6 mb-[22px] sm:mb-7">
-        <h1 className="font-serif text-[22px] sm:text-[32px] font-semibold tracking-[-0.02em] flex items-baseline gap-2 sm:gap-3">
-          <span className="text-ink">Ember</span>
-          <span className="text-accent font-normal">·</span>
-          <span className="hidden sm:inline font-sans text-[12px] font-normal text-ink-3 lowercase">
-            a reader for hackers
-          </span>
-        </h1>
-        <div className="font-sans text-[11px] sm:text-[12px] text-ink-3 uppercase tracking-[0.04em]">
-          {formatToday()}
-        </div>
+    <header className="pt-10 sm:pt-16 pb-4 sm:pb-6">
+      <div className="flex items-baseline justify-between gap-3 font-sans text-[10px] sm:text-[11px] text-ink-4 uppercase tracking-[0.16em] mb-3 sm:mb-4">
+        <span>{edition}</span>
+        <span>{date}</span>
       </div>
 
-      <nav className="flex gap-0.5 sm:gap-1 items-center overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        {TABS.map((tab) => {
-          const isActive = tab.kind === active
-          return (
-            <Link
-              key={tab.kind}
-              href={tab.href}
-              className={`font-sans text-[13px] font-medium px-3 sm:px-3.5 py-[7px] sm:py-2 rounded-full lowercase tracking-[0.02em] transition-colors flex-shrink-0 ${
-                isActive
-                  ? 'text-ink bg-bg-sunk'
-                  : 'text-ink-3 hover:text-ink hover:bg-bg-sunk'
-              }`}
-            >
-              {tab.label}
-            </Link>
-          )
-        })}
-        <div className="flex-1" />
-        <ThemeToggle />
-      </nav>
+      <h1 className="font-serif text-[34px] sm:text-[52px] leading-[0.95] font-semibold tracking-[-0.025em] text-ink mb-1.5 [text-wrap:balance]">
+        Better Hacker News
+      </h1>
+
+      <p className="font-serif italic text-[14px] sm:text-[15px] text-ink-3 mb-7 sm:mb-8 [text-wrap:balance]">
+        A calmer reading of news.ycombinator.com.
+      </p>
+
+      <div className="border-y border-rule">
+        <nav className="flex gap-1 sm:gap-2 items-center overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden py-1.5">
+          {TABS.map((tab) => {
+            const isActive = tab.kind === active
+            return (
+              <Link
+                key={tab.kind}
+                href={tab.href}
+                className={`font-sans text-[12px] sm:text-[13px] font-medium px-2 sm:px-2.5 py-1 uppercase tracking-[0.06em] transition-colors flex-shrink-0 ${
+                  isActive
+                    ? 'text-accent-ink'
+                    : 'text-ink-3 hover:text-ink'
+                }`}
+              >
+                {tab.label}
+              </Link>
+            )
+          })}
+          <div className="flex-1" />
+          <Link
+            href="/about"
+            className="font-sans text-[12px] sm:text-[13px] font-medium px-2 sm:px-2.5 py-1 uppercase tracking-[0.06em] transition-colors flex-shrink-0 text-ink-3 hover:text-ink"
+          >
+            About
+          </Link>
+          <ThemeToggle />
+        </nav>
+      </div>
     </header>
   )
 }

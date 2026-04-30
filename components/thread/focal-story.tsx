@@ -45,7 +45,10 @@ export function FocalStory({ story }: { story: HnStory }) {
       )}
 
       <div className="flex items-center gap-x-2 gap-y-1.5 sm:gap-2.5 flex-wrap font-sans text-[12px] text-ink-3">
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-bg-sunk font-medium text-ink-2 tabular-nums">
+        <span
+          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-bg-sunk font-medium text-ink-2 tabular-nums"
+          aria-label={`${points} points`}
+        >
           <svg
             viewBox="0 0 16 16"
             width="12"
@@ -57,7 +60,9 @@ export function FocalStory({ story }: { story: HnStory }) {
               fill="currentColor"
             />
           </svg>
-          <span>{points}</span>
+          <span>
+            {points} <span className="text-ink-3 font-normal">points</span>
+          </span>
         </span>
         <Sep />
         <span>

@@ -1,5 +1,6 @@
 import { Masthead } from './masthead'
 import { StoryRow } from './story-row'
+import { ListingClient } from './listing-client'
 import { getTopStoriesWithDetail } from '@/lib/hn/api'
 import type { StoryKind } from '@/lib/hn/types'
 
@@ -33,6 +34,8 @@ export async function ListingView({ kind }: { kind: StoryKind }) {
         <span className="text-ink-4">·</span>
         <span>via news.ycombinator.com</span>
       </footer>
+
+      <ListingClient />
     </div>
   )
 }

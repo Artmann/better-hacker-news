@@ -51,8 +51,8 @@ export async function generateMetadata({ params }: PageProps) {
   const { id: idParam } = await params
   const id = Number(idParam)
   if (!Number.isFinite(id)) {
-    return { title: 'Ember' }
+    return { title: 'Better Hacker News' }
   }
   const story = await getStory(id)
-  return { title: story ? `${story.title} — Ember` : 'Ember' }
+  return { title: story ? `${story.title} — Better Hacker News` : 'Better Hacker News' }
 }

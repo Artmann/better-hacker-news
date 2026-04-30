@@ -78,13 +78,13 @@ export async function generateMetadata({ params }: PageProps) {
   const { commentId: commentParam } = await params
   const commentId = Number(commentParam)
   if (!Number.isFinite(commentId)) {
-    return { title: 'Ember' }
+    return { title: 'Better Hacker News' }
   }
   const focal = await getItem(commentId)
   if (!focal || !isComment(focal)) {
-    return { title: 'Ember' }
+    return { title: 'Better Hacker News' }
   }
   return {
-    title: `Comment by @${focal.by ?? 'unknown'} — Ember`
+    title: `Comment by @${focal.by ?? 'unknown'} — Better Hacker News`
   }
 }

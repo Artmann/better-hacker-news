@@ -32,15 +32,21 @@ export function StoryRow({ story, rank }: { story: HnStory; rank: number }) {
   const author = story.by ?? '[deleted]'
 
   return (
-    <li className="grid grid-cols-[1fr] sm:grid-cols-[28px_1fr] gap-3.5 py-[22px] sm:py-5 border-b border-rule-2 last:border-b-0 items-start">
+    <li
+      data-story-row
+      data-story-id={story.id}
+      data-story-url={story.url ?? ''}
+      data-focused="false"
+      className="grid grid-cols-[1fr] sm:grid-cols-[28px_1fr] gap-3.5 py-[22px] sm:py-5 border-b border-rule-2 last:border-b-0 items-start data-[focused=true]:bg-bg-sunk/60 data-[seen=true]:opacity-55 transition-[opacity,background-color] duration-150 -mx-3 sm:-mx-4 px-3 sm:px-4 rounded"
+    >
       <div className="hidden sm:block font-mono text-[12px] text-ink-4 pt-1.5 tabular-nums">
         {String(rank).padStart(2, '0')}
       </div>
 
       <Link
         href={`/item/${story.id}`}
+        data-story-link
         className="block min-w-0 group"
-        prefetch={false}
       >
         <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap mb-2 sm:mb-1.5">
           <h2 className="font-serif text-[19px] sm:text-[21px] leading-[1.32] sm:leading-[1.3] font-semibold tracking-[-0.01em] text-ink group-hover:text-accent-ink transition-colors flex-1 [text-wrap:pretty]">

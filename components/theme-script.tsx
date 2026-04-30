@@ -1,6 +1,6 @@
 const SCRIPT = `(() => {
   try {
-    const stored = localStorage.getItem('ember-theme');
+    const stored = localStorage.getItem('bhn-theme');
     if (stored === 'dark' || stored === 'light') {
       document.documentElement.dataset.theme = stored;
     }
