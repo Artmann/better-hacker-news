@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { HnComment } from '@/lib/hn/types'
-import { formatRelativeTime, stripTags } from '@/lib/hn/derive'
+import { formatRelativeTime } from '@/lib/hn/derive'
+import { CommentHtml } from './comment-html'
 
 export function ReplyCard({
   comment,
@@ -10,52 +11,44 @@ export function ReplyCard({
   storyId: number
 }) {
   const author = comment.by ?? '[deleted]'
-  const text = stripTags(comment.text ?? '')
   const replyCount = comment.kids?.length ?? 0
 
   return (
-    <Link
-      href={`/item/${storyId}/c/${comment.id}`}
-      className="block w-full text-left py-5 border-b border-rule-2 last:border-b-0 group"
-    >
+    <div className="py-5 border-b border-rule-2 last:border-b-0">
       <div className="flex items-baseline flex-wrap gap-x-2 gap-y-1 mb-2 font-sans text-[12px]">
-        <div className="font-semibold text-ink text-[13px] group-hover:text-accent-ink transition-colors">
-          @{author}
-        </div>
+        <div className="font-semibold text-ink text-[13px]">@{author}</div>
         <span className="text-ink-4">·</span>
         <div className="text-ink-4">{formatRelativeTime(comment.time)} ago</div>
       </div>
 
-      <div className="font-serif text-[15.5px] sm:text-[16px] leading-[1.55] text-ink-2 mb-2.5 line-clamp-5 sm:line-clamp-4 [text-wrap:pretty]">
-        {text || <span className="italic text-ink-4">[deleted]</span>}
-      </div>
-
-      <div className="font-sans text-[12px] text-accent-ink">
-        {replyCount > 0 ? (
-          <span className="inline-flex items-center gap-1.5">
-            <svg
-              viewBox="0 0 16 16"
-              width="12"
-              height="12"
-              aria-hidden="true"
-            >
-              <path
-                d="M3 4 V9 Q3 11 5 11 H12 M9 8 L12 11 L9 14"
-                stroke="currentColor"
-                strokeWidth="1.3"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            <span>
-              {replyCount} {replyCount === 1 ? 'reply' : 'replies'} in thread
-            </span>
-          </span>
+      <div className="text-[15.5px] sm:text-[16px] mb-3">
+        {comment.text ? (
+          <CommentHtml html={comment.text} />
         ) : (
-          <span className="text-ink-4">no replies</span>
+          <span className="italic text-ink-4 font-serif">[deleted]</span>
         )}
       </div>
-    </Link>
+
+      <Link
+        href={`/item/${storyId}/c/${comment.id}`}
+        className="font-sans text-[12px] text-accent-ink inline-flex items-center gap-1.5 hover:underline"
+      >
+        <svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true">
+          <path
+            d="M3 4 V9 Q3 11 5 11 H12 M9 8 L12 11 L9 14"
+            stroke="currentColor"
+            strokeWidth="1.3"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+        <span>
+          {replyCount > 0
+            ? `${replyCount} ${replyCount === 1 ? 'reply' : 'replies'} in thread`
+            : 'view comment'}
+        </span>
+      </Link>
+    </div>
   )
 }
