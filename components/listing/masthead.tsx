@@ -36,9 +36,9 @@ const DAYS = [
 function formatToday(): { date: string; edition: string } {
   const now = new Date()
   const date = `${DAYS[now.getDay()]}, ${MONTHS[now.getMonth()]} ${now.getDate()}`
-  const start = new Date(2024, 0, 1).getTime()
+  const start = new Date(2007, 1, 19).getTime()
   const days = Math.floor((now.getTime() - start) / 86_400_000)
-  const edition = `№${String(days).padStart(4, '0')}`
+  const edition = `№${String(days).padStart(5, '0')}`
   return { date, edition }
 }
 
